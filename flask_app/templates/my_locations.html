@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Japan Adventures</title>
+</head>
+<body>
+    <!-- header -->
+    <div class="header d-flex justify-content-evenly align-items-center">
+        <h1>Japan Adventures</h1>
+        <ul class="nav-links d-flex justify-content-center">
+            <li>                    
+                <a href="/" class="whiten">Home</a>
+            </li>
+            <li>
+                <a href="/users/logout" class="whiten">Logout</a>                    
+            </li>
+        </ul>
+</div>
+
+    <div class="cont mx-auto">
+        <table class="table table-hover">
+            <tr class="table-secondary">
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            {% for place in all_places %}
+            <tr class="table-light">
+                <td>{{place.name}}</td>
+                <td>{{place.type}}</td>
+                <td>{{place.description}}</td>
+                <td>
+                    <a href="/places/{{place.id}}/edit">Edit</a> |
+                    <a href="/places/{{place.id}}/delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

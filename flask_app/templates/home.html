@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Japan Adventures</title>
+</head>
+
+<body>
+
+    <div class="main mx-auto">
+        <div class="header d-flex justify-content-evenly align-items-center">
+            <h1>Japan Adventures</h1>
+            <ul class="nav-links d-flex justify-content-center">
+                {% if 'user_id' in session%}
+                <li>
+                    <a href="/places/add" class="whiten">Add a Favorite Location</a>
+                </li>
+                <li>
+                    <a href="/places/view" class="whiten">My Locations</a>
+                </li>
+                {% endif %}
+                {% if 'user_id' in session%}
+                <li>
+                    <a  class="whiten" href="/users/logout">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <a class="whiten" href="/login/registration">Login or Register</a>
+                </li>
+                {% endif %}
+            </ul>
+    </div>
+    <div class="cont mx-auto row">
+        <h2 class="text-center">Best Locations to Visit in Japan</h2>
+        <div class="col-1">
+
+        </div>
+        <div class="col-10">
+            
+            <div id="map">
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+    </div>
+            <script>
+                function initMap() {
+
+                // The location of Uluru
+                const uluru = { lat: 36.36831876480836, lng:  139.25836332626315 };
+                // The map, centered at Uluru
+                var options = {
+                    zoom: 6,
+                    center: uluru
+                }
+
+                //new map
+                var map = new google.maps.Map(document.getElementById("map"), options);
+                
+                //add a marker
+                // var marker = new google.maps.Marker({
+                //     position:{lat:35.695352022972976, lng:139.70146224008792},
+                //     map:map
+                // }
+                // );
+                // add marker function
+                function addMarker(lat,lng,name){
+                    var marker = new google.maps.Marker({
+                        position:{lat:lat, lng:lng},
+                        map:map
+                    });
+                    var infoWindow = new google.maps.InfoWindow({
+                    content: `<h4>${name}</h4>`
+                });
+                
+                marker.addListener('click', function(){
+                    infoWindow.open(map,marker);
+                })
+                }
+            var all_places = {{ all_places|tojson|safe }}
+            //  create a marker for all places
+                for(var i=0; i<all_places.length; i++){
+                    addMarker(parseFloat(all_places[i]['lat']), parseFloat(all_places[i]['lng']), all_places[i]['name']);
+                    console.log(i);
+                }
+            
+        }
+                /* var marker = new google.maps.Marker({ position: {lat: 35.6953, lng: 139.70148}, map:map})
+
+                ADD DETAILS TO THE MAP
+                var infoWindow = new google.maps.InfoWindow({
+                    content :'<h1>Warp</h1> <p>Nightclub</p>'
+                })
+
+                NEEDS A LISTENER
+                marker.addListener('click',
+                function(){
+                    infoWindow.open(map, marker);
+                }
+                )
+                */
+
+            </script>
+            <script async
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRcq_UdpP3vi8ZLEr3XLgz5Wc1q3o_BNk&callback=initMap">
+                </script>
+</body>
+
+</html>

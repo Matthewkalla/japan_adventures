@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Japan Adventures</title>
+</head>
+
+<body>
+    <!-- main container -->
+        <!-- header -->
+        <div class="header d-flex justify-content-evenly align-items-center">
+            <h1>Japan Adventures</h1>
+            <ul class="nav-links d-flex justify-content-center">
+                <li>                    
+                    <a href="/" class="whiten">Home</a>
+                </li>
+                <li>
+                    <a href="/places/edit" class="whiten"> Edit a Location</a>
+                </li>
+                <li>
+                    <a href="/users/logout" class="whiten">Logout</a>                    
+                </li>
+            </ul>
+    </div>
+
+        <!-- where to report sightings -->
+        <div class="cont mx-auto">
+            <h2 class="text-center">Add A Favorite Location</h2>
+            <form action="/places/{{one_place.id}}/update" method="post">
+                <div class="row">
+                    <div class="col-1">
+                        <!-- separation -->
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <!-- give the name -->
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text" class="form-control" name="name" id="name" value="{{one_place.name}}">
+                            {% for message in get_flashed_messages(category_filter=['name']) %}
+                            <p class="text-danger">{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        <!-- describe the type of location -->
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Type:</label>
+                            <input type="text" class="form-control" name="type" id="type" value="{{one_place.type}}"></input>
+                            {% for message in get_flashed_messages(category_filter=['type']) %}
+                            <p class="text-danger">{{message}}</p>
+                            {% endfor %}
+                        </div>
+                        <!-- location -->
+                        <!-- still need to reverse the google api -->
+                        <!-- <div class="mb-3">
+                            <label for="location" class="form-label">Location: </label>
+                            <input type="type" class="form-control" name="location" id="autocomplete" value=""></input>
+                            {% for message in get_flashed_messages(category_filter=['location']) %}
+                            <p class="text-danger">{{message}}</p>
+                            {% endfor %}
+                        </div> -->
+                        <button class="btn btn-primary">Update Favorite Location</button>
+                    </div>
+                    <div class="col-2">
+                        <!-- separation -->
+                    </div>
+                    <div class="col-4">
+                        <!-- description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description: </label><br>
+                            <textarea type="int" name="description" id="description" class="form-control" cols="30"
+                                rows="8">{{one_place.description}}</textarea>
+                            {% for message in get_flashed_messages(category_filter=['description']) %}
+                            <p class="text-danger">{{message}}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <!-- separation -->
+                    </div>
+                </div>
+            </form>
+            <!-- autocomplete -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRcq_UdpP3vi8ZLEr3XLgz5Wc1q3o_BNk&libraries=places&callback=initAutocomplete" async defer></script>
+            <script>
+                let autocomplete;
+                function initAutocomplete() {
+                    autocomplete = new google.maps.places.Autocomplete(
+                        document.getElementById('autocomplete'),
+                        {
+                            types: ['establishment', 'geocode'],
+                            componentRestrictions: {'country': ['JP']},
+                            fields: ['place_id', 'geometry', 'name']
+                        });
+
+                    autocomplete.addListener('place_changed', onPlaceChanged);
+
+                    function onPlaceChanged (){
+                        var place = autocomplete.getPlace();
+                    }
+
+                    if(!place.geometry){ //user did not select a prediction; reset the input field
+                        document.getElementById('autocomplete').placeholder = 
+                        'Enter a place';
+                    }
+                    else {
+                        //display details about the valid place
+                        document.getElementById('details').innerHTML = place.name;
+                    }
+                }
+
+                /*
+                one form of autocomplete
+                var searchInput = 'search_input';
+
+                $(document).ready(function () {
+                    var autocomplete;
+                    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                        types: ['geocode']
+                    })
+                });
+
+                google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                    var near_place = autocomplete.getPlace();
+                });
+                */ 
+            </script>
+
+        </div>
+</body>
+
+</html>
