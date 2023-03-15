@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_app.models.user_model import User
 from flask_app.models.place_model import Place
 from flask_app.utilities import utilities
-from flask_app.config import config
+from flask_app import API_KEY
 import requests
 bcrypt = Bcrypt(app)
 
@@ -28,7 +28,7 @@ def add_place():
     # convert the address into
     #longitude and lattitude to store in the database
     params = {
-        'key': config.API_KEY,
+        'key': API_KEY,
         'address': request.form['location']
     }
 

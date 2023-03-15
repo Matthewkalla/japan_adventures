@@ -4,16 +4,18 @@ from flask_bcrypt import Bcrypt
 from flask_app.models.user_model import User
 from flask_app.models.place_model import Place
 from flask_app.utilities import utilities
+from flask_app import API_KEY
 bcrypt = Bcrypt(app)
 
 #home page
 @app.route('/')
 def index():
     places = Place.get_all()
+    api_key = API_KEY
     print('--------the list of all the places-------------------')
     places_dict = [one_place.to_dict() for one_place in places]
 
-    return render_template("home.html", all_places = places_dict)
+    return render_template("home.html", all_places = places_dict, api_key = api_key)
 
 @app.route('/login/registration')
 def registration_page():
