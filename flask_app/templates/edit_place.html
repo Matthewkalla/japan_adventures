@@ -29,13 +29,13 @@
 
         <!-- where to report sightings -->
         <div class="cont mx-auto">
-            <h2 class="text-center">Add A Favorite Location</h2>
+            <h2 class="text-center">Update Location</h2>
             <form action="/places/{{one_place.id}}/update" method="post">
                 <div class="row">
                     <div class="col-1">
                         <!-- separation -->
                     </div>
-                    <div class="col-4">
+                    <div class="col-5">
                         <div class="mb-3">
                             <!-- give the name -->
                             <label for="name" class="form-label">Name:</label>
@@ -54,19 +54,16 @@
                         </div>
                         <!-- location -->
                         <!-- still need to reverse the google api -->
-                        <!-- <div class="mb-3">
+                        <div class="mb-3">
                             <label for="location" class="form-label">Location: </label>
-                            <input type="type" class="form-control" name="location" id="autocomplete" value=""></input>
+                            <input type="type" class="form-control" name="location" id="autocomplete" value="{{one_place.addr}}"></input>
                             {% for message in get_flashed_messages(category_filter=['location']) %}
                             <p class="text-danger">{{message}}</p>
                             {% endfor %}
-                        </div> -->
-                        <button class="btn btn-primary">Update Favorite Location</button>
+                        </div>
+                        <button class="btn btn-primary">Update</button>
                     </div>
-                    <div class="col-2">
-                        <!-- separation -->
-                    </div>
-                    <div class="col-4">
+                    <div class="col-5">
                         <!-- description -->
                         <div class="mb-3">
                             <label for="description" class="form-label">Description: </label><br>

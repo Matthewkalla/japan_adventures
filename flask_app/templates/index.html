@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <title>Document</title>
+    <title>Japan Adventures</title>
 </head>
 <body>
     {% for message in get_flashed_messages(category_filter=['not_logged']) %}
@@ -50,13 +50,6 @@
                         <input type="password" class="form-control" name="conf_pass" id="conf_pass">
                     </div>
                     {% for message in get_flashed_messages(category_filter=['password']) %}
-                        <p class="text-danger">{{message}}</p>
-                    {% endfor %}
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" name="read_terms" id="read_terms">
-                        <label class="form-check-label" for="read_terms">I have read and agree to the Terms and Conditions</label>
-                    </div>
-                    {% for message in get_flashed_messages(category_filter=['read_terms']) %}
                         <p class="text-danger">{{message}}</p>
                     {% endfor %}
                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -101,21 +101,25 @@ body {
 
 #map{
   margin-top: 40px;
-  height: 600px;
+  height: 700px;
+  width: 100%;
 }
+
+
 .nav-links{
   padding-top: 15px;
   list-style: none;
   text-decoration: none;
   gap: 25px;
+  font-size: .75em;
 }
 
 .cont{
-  width: 1111px;
+  width: 85%;
   background-color: peachpuff;
-  padding: 40px;
+  padding: 25px;
   margin-bottom: 60px;
-  padding-bottom: 150px;
+  padding-bottom: 50px;
 }
 
 .header{
@@ -132,6 +136,10 @@ body {
 /* for right divs */
 .div-right{
   flex: 1;
+}
+
+.place-details{
+  margin-top: 25px;
 }
 
 hr {
@@ -350,7 +358,7 @@ table {
   caption-side: bottom;
   border-collapse: collapse;
   border: 1.5px solid whitesmoke;
-  width: 350px;
+  font-size: .75em;
 }
 
 caption {

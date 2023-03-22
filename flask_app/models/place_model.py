@@ -27,6 +27,15 @@ class Place:
             'updated_at': self.updated_at,
             'user_id': self.user_id
         }
+    
+    #remove the created at and updated at for json conversion
+    def remove_date(self):
+        """
+        :params: self
+        :returns: none
+        """
+        del self.created_at
+        del self.updated_at
 
 
 #add a place
@@ -44,7 +53,7 @@ class Place:
     def update(cls,data):
         query="""
         UPDATE places
-        SET name = %(name)s, type = %(type)s, description = %(description)s
+        SET name = %(name)s, type = %(type)s, description = %(description)s, lat= %(lat)s, lng= %(lng)s
         WHERE id = %(id)s
         """
         return connectToMySQL(DATABASE).query_db(query,data)
@@ -68,23 +77,24 @@ class Place:
         FROM places;
         """
         results = connectToMySQL(DATABASE).query_db(query)
-        print(results)
         if results:
             places_list = []
             for one_row in results:
-                one_place = cls(one_row)
+                one_place = cls(one_row).to_dict()
                 places_list.append(one_place)
             return places_list
         return False
 
     @classmethod
     def get_one(cls,data):
+
         query = """
         SELECT *
         FROM places
         WHERE id = %(id)s;
         """
         results = connectToMySQL(DATABASE).query_db(query,data)
+        print(results[0])
         return cls(results[0])
 
 

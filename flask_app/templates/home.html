@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
     <title>Japan Adventures</title>
 </head>
 
@@ -17,15 +18,15 @@
             <ul class="nav-links d-flex justify-content-center">
                 {% if 'user_id' in session%}
                 <li>
-                    <a href="/places/add" class="whiten">Add a Favorite Location</a>
-                </li>
-                <li>
-                    <a href="/places/view" class="whiten">My Locations</a>
+                    <a href="/places/add" class="whiten">Add a Location</a>
                 </li>
                 {% endif %}
+                <li>
+                    <a href="/places/view" class="whiten">All Locations</a>
+                </li>
                 {% if 'user_id' in session%}
                 <li>
-                    <a  class="whiten" href="/users/logout">Logout</a>
+                    <a class="whiten" href="/users/logout">Logout</a>
                 </li>
                 {% else %}
                 <li>
@@ -33,26 +34,20 @@
                 </li>
                 {% endif %}
             </ul>
-    </div>
-    <div class="cont mx-auto row">
-        <h2 class="text-center">Best Locations to Visit in Japan</h2>
-        <div class="col-1">
-
         </div>
-        <div class="col-10">
-            
-            <div id="map">
+        <div class="cont mx-auto">
+            <h2 class="text-center">Best Locations to Visit in Japan</h2>
+
+                <div id="map">
+                </div>
+
             </div>
         </div>
-        <div class="col-1">
-
-        </div>
-    </div>
-            <script>
-                function initMap() {
+        <script>
+            function initMap() {
 
                 // The location of Uluru
-                const uluru = { lat: 36.36831876480836, lng:  139.25836332626315 };
+                const uluru = { lat: 36.36831876480836, lng: 139.25836332626315 };
                 // The map, centered at Uluru
                 var options = {
                     zoom: 6,
@@ -61,36 +56,48 @@
 
                 //new map
                 var map = new google.maps.Map(document.getElementById("map"), options);
-                
-                
+
+
                 // add marker function
-                function addMarker(lat,lng,name, type){
+                function addMarker(lat, lng, name, type, addr, desc) {
                     var marker = new google.maps.Marker({
-                        position:{lat:lat, lng:lng},
-                        map:map
+                        position: { lat: lat, lng: lng },
+                        map: map
                     });
                     var infoWindow = new google.maps.InfoWindow({
-                    content: `<h4>${name}</h4> <h5>${type}</h5>`
-                });
-                
-                marker.addListener('click', function(){
-                    infoWindow.open(map,marker);
-                })
+                        content: `<div>
+                        <h4>${name}</h4>
+                        <h5>${type}</h5>
+                        <p>${addr}</p>
+                        <p>${desc}</p>
+                        </div>`
+                    });
+
+                    marker.addListener('click', function () {
+                        infoWindow.open(map, marker);
+                    })
                 }
-            var all_places = {{ all_places|tojson|safe }}
-            //  create a marker for all places
-                for(var i=0; i<all_places.length; i++){
-                    addMarker(parseFloat(all_places[i]['lat']), parseFloat(all_places[i]['lng']), all_places[i]['name'], all_places[i]['type']);
-                    console.log(i);
-                }
+            // //  create a marker for all places
+            const places = {{places|tojson|safe}};
+
+            for (var i = 0; i < places.length; i++) {
+                addMarker(
+                parseFloat(places[i]['lat']),
+                parseFloat(places[i]['lng']),
+                places[i]['name'],
+                places[i]['type'],
+                places[i]['addr'],
+                places[i]['description']
+                );
+                console.log(i);
+            }
             
         }
-            
 
-            </script>
-            <script async
-                src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&callback=initMap">
-                </script>
+
+        </script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&callback=initMap">
+        </script>
 </body>
 
 </html>

@@ -63,9 +63,6 @@ class User:
     @staticmethod
     def validator(form_data):
         is_valid = True
-        if "read_terms" not in form_data:
-            is_valid = False
-            flash("You need to agree to the Terms and Conditions", 'read_terms')
         if len(form_data['first_name']) < 1:
             flash("First name field required", 'first_name')
             is_valid = False
