@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <linK rel="icon" type="image/x-icon" href="{{ url_for('static', filename='japan_fav.png') }}">
     <title>Japan Adventures</title>
 </head>
 
@@ -19,9 +20,6 @@
                     <a href="/" class="whiten">Home</a>
                 </li>
                 <li>
-                    <a href="/places/edit" class="whiten"> Edit a Location</a>
-                </li>
-                <li>
                     <a href="/users/logout" class="whiten">Logout</a>                    
                 </li>
             </ul>
@@ -31,7 +29,7 @@
         <div class="cont mx-auto">
             <h2 class="text-center">Add A Favorite Location</h2>
             <form action="/places/create" method="post">
-                <div class="row">
+                <div class="row edit-add-text">
                     <div class="col-1">
                         <!-- separation -->
                     </div>
@@ -55,7 +53,7 @@
                         <!-- location -->
                         <div class="mb-3">
                             <label for="location" class="form-label">Location: </label>
-                            <input type="type" class="form-control" name="location" id="autocomplete"></input>
+                            <input type="text" class="form-control" name="location" id="autocomplete"></input>
                             {% for message in get_flashed_messages(category_filter=['location']) %}
                             <p class="text-danger">{{message}}</p>
                             {% endfor %}
@@ -66,7 +64,7 @@
                         <!-- description -->
                         <div class="mb-3">
                             <label for="description" class="form-label">Description: </label><br>
-                            <textarea type="int" name="description" id="description" class="form-control" cols="30"
+                            <textarea name="description" id="description" class="form-control" cols="30"
                                 rows="8" placeholder="What made this location great?"></textarea>
                             {% for message in get_flashed_messages(category_filter=['description']) %}
                             <p class="text-danger">{{message}}</p>

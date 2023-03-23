@@ -99,19 +99,13 @@ body {
   background-size: cover;
 }
 
-#map{
-  margin-top: 40px;
-  height: 700px;
-  width: 100%;
-}
-
+/* custom css */
 
 .nav-links{
   padding-top: 15px;
   list-style: none;
   text-decoration: none;
   gap: 25px;
-  font-size: .75em;
 }
 
 .cont{
@@ -140,7 +134,44 @@ body {
 
 .place-details{
   margin-top: 25px;
+  font-size: .85em;
 }
+
+.edit-add-text{
+  font-size: .85em;
+}
+
+/* making the header go back link white */
+
+.whiten{
+  color: whitesmoke;
+  font-size: .80em;
+}
+
+#reg-login{
+  font-size: .85em;
+}
+
+#map{
+  margin-top: 40px;
+  height: 700px;
+  width: 100%;
+}
+
+#description{
+  font-size: .85em;
+}
+
+input[type="text"]{
+  font-size: .85em;
+}
+
+input[type="password"]{
+  font-size: .85em;
+}
+
+/* end custom css */
+
 
 hr {
   margin: 1rem 0;
@@ -288,11 +319,6 @@ a {
   text-decoration: none;
 }
 
-/* making the header go back link white */
-
-.whiten{
-  color: whitesmoke;
-}
 
 a:hover {
   color: var(--bs-link-hover-color);
@@ -358,7 +384,7 @@ table {
   caption-side: bottom;
   border-collapse: collapse;
   border: 1.5px solid whitesmoke;
-  font-size: .75em;
+  font-size: .80em;
 }
 
 caption {
@@ -403,7 +429,7 @@ optgroup,
 textarea {
   margin: 0;
   font-family: inherit;
-  font-size: inherit;
+  font-size: .80em;
   line-height: inherit;
 }
 

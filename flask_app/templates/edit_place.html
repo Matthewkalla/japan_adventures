@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <linK rel="icon" type="image/x-icon" href="{{ url_for('static', filename='japan_fav.png') }}">
     <title>Japan Adventures</title>
 </head>
 
@@ -17,9 +18,6 @@
             <ul class="nav-links d-flex justify-content-center">
                 <li>                    
                     <a href="/" class="whiten">Home</a>
-                </li>
-                <li>
-                    <a href="/places/edit" class="whiten"> Edit a Location</a>
                 </li>
                 <li>
                     <a href="/users/logout" class="whiten">Logout</a>                    
@@ -35,7 +33,7 @@
                     <div class="col-1">
                         <!-- separation -->
                     </div>
-                    <div class="col-5">
+                    <div class="col-5 edit-add-text">
                         <div class="mb-3">
                             <!-- give the name -->
                             <label for="name" class="form-label">Name:</label>
@@ -56,19 +54,19 @@
                         <!-- still need to reverse the google api -->
                         <div class="mb-3">
                             <label for="location" class="form-label">Location: </label>
-                            <input type="type" class="form-control" name="location" id="autocomplete" value="{{one_place.addr}}"></input>
+                            <input type="text" class="form-control" name="location" id="autocomplete" value="{{one_place.addr}}"></input>
                             {% for message in get_flashed_messages(category_filter=['location']) %}
                             <p class="text-danger">{{message}}</p>
                             {% endfor %}
                         </div>
                         <button class="btn btn-primary">Update</button>
                     </div>
-                    <div class="col-5">
+                    <div class="col-5 edit-add-text">
                         <!-- description -->
                         <div class="mb-3">
                             <label for="description" class="form-label">Description: </label><br>
                             <textarea type="int" name="description" id="description" class="form-control" cols="30"
-                                rows="8">{{one_place.description}}</textarea>
+                                rows="10">{{one_place.description}}</textarea>
                             {% for message in get_flashed_messages(category_filter=['description']) %}
                             <p class="text-danger">{{message}}</p>
                             {% endfor %}
